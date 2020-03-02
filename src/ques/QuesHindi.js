@@ -286,7 +286,8 @@ class RightpanelHindi extends Component {
                       // placeholder: "Test description and instruction in English"
                     }}
                     onFocus={event => {
-                      event.editor.insertHtml(" ");
+					 window.hook(event.editor.document.$.body)
+                      event.editor.insertHtml("");
                       const data = event.editor.getData();
                       this.props.handleOptioncontentchange(index, data);
                     }}
@@ -557,37 +558,21 @@ function QuestionComp({ questionData, handleQuestionEditor }) {
           //   // console.log("Editor is ready to use!", editor);
           // }}
           onFocus={event => {
-            event.editor.insertHtml(" ");
-            const data = event.editor.getData();
-            // console.log(data)
+			window.hook(event.editor.document.$.body)
+            event.editor.insertHtml("");
+            const data = event.editor.getData();           
             handleQuestionEditor(data);
-            window.hook(
-              document
-
-                .getElementsByTagName("iframe")[0]
-                .contentDocument.getElementsByTagName("body")[0]
-            );
+            
           }}
           oninstanceReady={event => {
-            console.log("CKE Instance Ready");
+          			
             var a = document.getElementById("txtLanguage");
-
             a.selectedIndex = 1;
-
             window.setLang();
-
             var b = document.getElementById("txtKeyboard");
-
             b.selectedIndex = 0;
-
             window.changeKB();
-
-            window.hook(
-              document
-
-                .getElementsByTagName("iframe")[0]
-                .contentDocument.getElementsByTagName("body")[0]
-            );
+            
           }}
           onChange={event => {
             const data = event.editor.getData();
@@ -626,6 +611,7 @@ function ExplanationComp({ explanationData, handleExplanationEditor }) {
           //   // console.log("Editor is ready to use!", editor);
           // }}
           onFocus={event => {
+			window.hook(event.editor.document.$.body)
             event.editor.insertHtml(" ");
             const data = event.editor.getData();
             handleExplanationEditor(data);
