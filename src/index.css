@@ -46,9 +46,9 @@ select:not([multiple]) {
   }
 }
 
-.cke_button_icon.cke_button__ckeditor_wiris_formulaeditor_icon{
+/* .cke_button_icon.cke_button__ckeditor_wiris_formulaeditor_icon{
   background-image:url("./formula.png") !important;
 }
 .cke_button_icon.cke_button__ckeditor_wiris_formulaeditorchemistry_icon{
   background-image:url("./chem.png") !important; 
-}
+} */
