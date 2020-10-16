@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import CKEditor from "ckeditor4-react";
-// import axios from "axios";
+import axios from "axios";
 // import URL from "../../Assets/url";
-// import ReactTags from "react-tag-autocomplete";
-// import Difficulty from "./difficulty.js";
+import ReactTags from "react-tag-autocomplete";
+import Difficulty from "./difficulty.js";
 import "./index.css";
 import swal from "sweetalert";
 
@@ -77,92 +77,92 @@ class QuesHindi extends Component {
       listOfOptions: currentArrayOfOption
     });
   };
-  // saveHindidata = () => {
-  //   // console.log("questionId:", this.props.questionId);
-  //   let difficultyvalue;
-  //   switch (this.props.difficulty) {
-  //     case "+":
-  //       difficultyvalue = "EASY";
-  //       break;
-  //     case "++":
-  //       difficultyvalue = "MILD";
-  //       break;
-  //     case "+++":
-  //       difficultyvalue = "ADVANCE";
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  //   let converttags = this.props.tags.map(item => {
-  //     return { tagId: item.id ? item.id : 0, tag: item.name };
-  //   });
+  saveHindidata = () => {
+    // console.log("questionId:", this.props.questionId);
+    let difficultyvalue;
+    switch (this.props.difficulty) {
+      case "+":
+        difficultyvalue = "EASY";
+        break;
+      case "++":
+        difficultyvalue = "MILD";
+        break;
+      case "+++":
+        difficultyvalue = "ADVANCE";
+        break;
+      default:
+        break;
+    }
+    let converttags = this.props.tags.map(item => {
+      return { tagId: item.id ? item.id : 0, tag: item.name };
+    });
 
-  //   axios({
-  //     method: "POST",
-  //     url:
-  //       this.props.questionId === 0
-  //         ? URL.createQuestion
-  //         : URL.createQuestionNewVersion,
-  //     data: {
-  //       authToken: "string",
-  //       difficulty: difficultyvalue ? difficultyvalue : "EASY",
-  //       questionId: this.props.questionId,
-  //       sectionId: this.props.selectedChapterID,
-  //       subjectId: this.props.selectedSubjectID,
-  //       subtopicId: this.props.selectedSubTopicID,
-  //       tags: converttags,
-  //       topicId: this.props.selectedTopicID,
-  //       type: "SINGLE_CHOICE",
-  //       version: {
-  //         content: this.state.questionData,
-  //         language: "HINDI",
-  //         options: this.state.listOfOptions,
-  //         // questionVersionId: 0,
-  //         solution: this.state.explanationData
-  //       }
-  //     },
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     }
-  //   })
-  //     .then(res => {
-  //       // console.log(res.data.data);
-  //       if (res.status === 200) {
-  //         if (this.props.questionId === 0) {
-  //           swal(
-  //             "Success",
-  //             `Added new Question, Id:${res.data.data.questionId}`,
-  //             "success"
-  //           );
-  //         } else {
-  //           swal(
-  //             "Success",
-  //             `Added new Version of Question, Id:${res.data.data.questionId}`,
-  //             "success"
-  //           );
-  //         }
-  //         // swal("Success", `QuestionId:${res.data.data.questionId}`, "success");
-  //         this.props.handleChange(res.data.data.questionId);
-  //         this.props.handleSelect();
-  //         this.setState({
-  //           questionData: "",
-  //           explanationData: "",
-  //           listOfOptions: [
-  //             { name: "Option A", content: "", weightage: 0 },
-  //             { name: "Option B", content: "", weightage: 0 }
-  //           ],
-  //           letterchartcode: 67
-  //         });
-  //         // }
-  //       } else {
-  //         swal(`Status Code:${res.status}`, "error");
-  //       }
-  //     })
-  //     .catch(e => {
-  //       console.log(e);
-  //       swal(e, "error");
-  //     });
-  // };
+    axios({
+      method: "POST",
+      url:
+        this.props.questionId === 0
+          ? URL.createQuestion
+          : URL.createQuestionNewVersion,
+      data: {
+        authToken: "string",
+        difficulty: difficultyvalue ? difficultyvalue : "EASY",
+        questionId: this.props.questionId,
+        sectionId: this.props.selectedChapterID,
+        subjectId: this.props.selectedSubjectID,
+        subtopicId: this.props.selectedSubTopicID,
+        tags: converttags,
+        topicId: this.props.selectedTopicID,
+        type: "SINGLE_CHOICE",
+        version: {
+          content: this.state.questionData,
+          language: "HINDI",
+          options: this.state.listOfOptions,
+          // questionVersionId: 0,
+          solution: this.state.explanationData
+        }
+      },
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => {
+        // console.log(res.data.data);
+        if (res.status === 200) {
+          if (this.props.questionId === 0) {
+            swal(
+              "Success",
+              `Added new Question, Id:${res.data.data.questionId}`,
+              "success"
+            );
+          } else {
+            swal(
+              "Success",
+              `Added new Version of Question, Id:${res.data.data.questionId}`,
+              "success"
+            );
+          }
+          // swal("Success", `QuestionId:${res.data.data.questionId}`, "success");
+          this.props.handleChange(res.data.data.questionId);
+          this.props.handleSelect();
+          this.setState({
+            questionData: "",
+            explanationData: "",
+            listOfOptions: [
+              { name: "Option A", content: "", weightage: 0 },
+              { name: "Option B", content: "", weightage: 0 }
+            ],
+            letterchartcode: 67
+          });
+          // }
+        } else {
+          swal(`Status Code:${res.status}`, "error");
+        }
+      })
+      .catch(e => {
+        console.log(e);
+        swal(e, "error");
+      });
+  };
   render() {
     return (
       <div>
@@ -350,169 +350,169 @@ class RightpanelHindi extends Component {
   }
 }
 
-// class LeftPanel extends Component {
-//   render() {
-//     let currentvaluesubject = this.props.listOfSubject.filter(
-//       item => item.subject.subjectId === this.props.selectedSubjectID
-//     )[0];
-//     currentvaluesubject = currentvaluesubject
-//       ? currentvaluesubject.subjectName
-//       : "";
-//     let currentvaluechapter = this.props.listOfChapter.filter(
-//       item => item.subjectSection.sectionId === this.props.selectedChapterID
-//     )[0];
-//     currentvaluechapter = currentvaluechapter
-//       ? currentvaluechapter.sectionName
-//       : "";
+class LeftPanel extends Component {
+  render() {
+    let currentvaluesubject = this.props.listOfSubject.filter(
+      item => item.subject.subjectId === this.props.selectedSubjectID
+    )[0];
+    currentvaluesubject = currentvaluesubject
+      ? currentvaluesubject.subjectName
+      : "";
+    let currentvaluechapter = this.props.listOfChapter.filter(
+      item => item.subjectSection.sectionId === this.props.selectedChapterID
+    )[0];
+    currentvaluechapter = currentvaluechapter
+      ? currentvaluechapter.sectionName
+      : "";
 
-//     let currentvaluetopic = this.props.listOfTopic.filter(
-//       item => item.subjectTopic.topicId === this.props.selectedTopicID
-//     )[0];
-//     currentvaluetopic = currentvaluetopic ? currentvaluetopic.title : "";
-//     let currentvaluesubtopic = this.props.listOfSubTopic.filter(
-//       item => item.subjectSubtopic.subtopicId === this.props.selectedSubTopicID
-//     )[0];
-//     currentvaluesubtopic = currentvaluesubtopic
-//       ? currentvaluesubtopic.title
-//       : "";
-//     return (
-//       <Form>
-//         <Form.Group controlId="exampleForm.ControlSelect11">
-//           <Form.Label
-//             style={{
-//               fontWeight: "600"
-//             }}
-//           >
-//             Subject
-//           </Form.Label>
-//           <Form.Control
-//             style={{ borderRadius: "0" }}
-//             size="sm"
-//             as="select"
-//             // defaultValue=""
-//             onChange={this.props.handleSubjectChange}
-//             value={currentvaluesubject}
-//           >
-//             {this.props.listOfSubject &&
-//               this.props.listOfSubject.map((item, index) => {
-//                 return (
-//                   <option key={index} value={item.subjectName}>
-//                     {item.subjectName}
-//                   </option>
-//                 );
-//               })}
-//           </Form.Control>
-//         </Form.Group>
-//         <Form.Group controlId="exampleForm.ControlSelect22">
-//           <Form.Label
-//             style={{
-//               fontWeight: "600"
-//             }}
-//           >
-//             Chapter
-//           </Form.Label>
-//           <Form.Control
-//             style={{ borderRadius: "0" }}
-//             size="sm"
-//             as="select"
-//             value={currentvaluechapter}
-//             onChange={this.props.handleChapterChange}
-//           >
-//             {this.props.listOfChapter &&
-//               this.props.listOfChapter.map((item, index) => {
-//                 return (
-//                   <option key={index} value={item.sectionName}>
-//                     {item.sectionName}
-//                   </option>
-//                 );
-//               })}
-//           </Form.Control>
-//         </Form.Group>
-//         <Form.Group controlId="exampleForm.ControlSelect33">
-//           <Form.Label
-//             style={{
-//               fontWeight: "600"
-//             }}
-//           >
-//             Topic
-//           </Form.Label>
-//           <Form.Control
-//             style={{ borderRadius: "0" }}
-//             size="sm"
-//             as="select"
-//             value={currentvaluetopic}
-//             onChange={this.props.handleTopicChange}
-//           >
-//             {this.props.listOfTopic &&
-//               this.props.listOfTopic.map((item, index) => {
-//                 return (
-//                   <option key={index} value={item.title}>
-//                     {item.title}
-//                   </option>
-//                 );
-//               })}
-//           </Form.Control>
-//         </Form.Group>
-//         <Form.Group controlId="exampleForm.ControlSelect44">
-//           <Form.Label
-//             style={{
-//               fontWeight: "600"
-//             }}
-//           >
-//             Sub-topic
-//           </Form.Label>
-//           <Form.Control
-//             style={{ borderRadius: "0" }}
-//             size="sm"
-//             as="select"
-//             value={currentvaluesubtopic}
-//             onChange={this.props.handleSubTopicChange}
-//           >
-//             {this.props.listOfSubTopic &&
-//               this.props.listOfSubTopic.map((item, index) => {
-//                 return (
-//                   <option key={index} value={item.title}>
-//                     {item.title}
-//                   </option>
-//                 );
-//               })}
-//           </Form.Control>
-//         </Form.Group>
-//         <Form.Group controlId="exampleForm.ControlInput11">
-//           <Form.Label
-//             style={{
-//               fontWeight: "600"
-//             }}
-//           >
-//             Tags
-//           </Form.Label>
-//           <ReactTags
-//             // style={{width:'100%'}}
-//             tags={this.props.tags}
-//             onInput={this.props.handleChangeTags}
-//             suggestions={this.props.suggestions}
-//             onDelete={this.props.onDelete.bind(this)}
-//             onAddition={this.props.onAddition.bind(this)}
-//           />
-//         </Form.Group>
-//         <Form.Group controlId="exampleForm.ControlTextarea11">
-//           <Form.Label
-//             style={{
-//               fontWeight: "600"
-//             }}
-//           >
-//             Difficulty
-//           </Form.Label>
-//           <br />
-//           <Difficulty
-//             difficulty={this.props.difficulty}
-//             handleDifficultyRadio={this.props.handleDifficultyRadio}
-//           />
-//         </Form.Group>
-//       </Form>
-//     );
-//   }
-// }
+    let currentvaluetopic = this.props.listOfTopic.filter(
+      item => item.subjectTopic.topicId === this.props.selectedTopicID
+    )[0];
+    currentvaluetopic = currentvaluetopic ? currentvaluetopic.title : "";
+    let currentvaluesubtopic = this.props.listOfSubTopic.filter(
+      item => item.subjectSubtopic.subtopicId === this.props.selectedSubTopicID
+    )[0];
+    currentvaluesubtopic = currentvaluesubtopic
+      ? currentvaluesubtopic.title
+      : "";
+    return (
+      <Form>
+        <Form.Group controlId="exampleForm.ControlSelect11">
+          <Form.Label
+            style={{
+              fontWeight: "600"
+            }}
+          >
+            Subject
+          </Form.Label>
+          <Form.Control
+            style={{ borderRadius: "0" }}
+            size="sm"
+            as="select"
+            // defaultValue=""
+            onChange={this.props.handleSubjectChange}
+            value={currentvaluesubject}
+          >
+            {this.props.listOfSubject &&
+              this.props.listOfSubject.map((item, index) => {
+                return (
+                  <option key={index} value={item.subjectName}>
+                    {item.subjectName}
+                  </option>
+                );
+              })}
+          </Form.Control>
+        </Form.Group>
+        <Form.Group controlId="exampleForm.ControlSelect22">
+          <Form.Label
+            style={{
+              fontWeight: "600"
+            }}
+          >
+            Chapter
+          </Form.Label>
+          <Form.Control
+            style={{ borderRadius: "0" }}
+            size="sm"
+            as="select"
+            value={currentvaluechapter}
+            onChange={this.props.handleChapterChange}
+          >
+            {this.props.listOfChapter &&
+              this.props.listOfChapter.map((item, index) => {
+                return (
+                  <option key={index} value={item.sectionName}>
+                    {item.sectionName}
+                  </option>
+                );
+              })}
+          </Form.Control>
+        </Form.Group>
+        <Form.Group controlId="exampleForm.ControlSelect33">
+          <Form.Label
+            style={{
+              fontWeight: "600"
+            }}
+          >
+            Topic
+          </Form.Label>
+          <Form.Control
+            style={{ borderRadius: "0" }}
+            size="sm"
+            as="select"
+            value={currentvaluetopic}
+            onChange={this.props.handleTopicChange}
+          >
+            {this.props.listOfTopic &&
+              this.props.listOfTopic.map((item, index) => {
+                return (
+                  <option key={index} value={item.title}>
+                    {item.title}
+                  </option>
+                );
+              })}
+          </Form.Control>
+        </Form.Group>
+        <Form.Group controlId="exampleForm.ControlSelect44">
+          <Form.Label
+            style={{
+              fontWeight: "600"
+            }}
+          >
+            Sub-topic
+          </Form.Label>
+          <Form.Control
+            style={{ borderRadius: "0" }}
+            size="sm"
+            as="select"
+            value={currentvaluesubtopic}
+            onChange={this.props.handleSubTopicChange}
+          >
+            {this.props.listOfSubTopic &&
+              this.props.listOfSubTopic.map((item, index) => {
+                return (
+                  <option key={index} value={item.title}>
+                    {item.title}
+                  </option>
+                );
+              })}
+          </Form.Control>
+        </Form.Group>
+        <Form.Group controlId="exampleForm.ControlInput11">
+          <Form.Label
+            style={{
+              fontWeight: "600"
+            }}
+          >
+            Tags
+          </Form.Label>
+          <ReactTags
+            // style={{width:'100%'}}
+            tags={this.props.tags}
+            onInput={this.props.handleChangeTags}
+            suggestions={this.props.suggestions}
+            onDelete={this.props.onDelete.bind(this)}
+            onAddition={this.props.onAddition.bind(this)}
+          />
+        </Form.Group>
+        <Form.Group controlId="exampleForm.ControlTextarea11">
+          <Form.Label
+            style={{
+              fontWeight: "600"
+            }}
+          >
+            Difficulty
+          </Form.Label>
+          <br />
+          <Difficulty
+            difficulty={this.props.difficulty}
+            handleDifficultyRadio={this.props.handleDifficultyRadio}
+          />
+        </Form.Group>
+      </Form>
+    );
+  }
+}
 
 function QuestionComp({ questionData, handleQuestionEditor }) {
   return (
