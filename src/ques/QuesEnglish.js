@@ -143,7 +143,9 @@ class QuesEnglish extends Component {
             explanationData: "",
             listOfOptions: [
               { name: "Option A", content: "", weightage: 0 },
-              { name: "Option B", content: "", weightage: 0 }
+              { name: "Option B", content: "", weightage: 0 },
+              { name: "Option C", content: "", weightage: 0 },
+              { name: "Option D", content: "", weightage: 0 }
             ],
             letterchartcode: 67
           });
