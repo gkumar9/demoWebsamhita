@@ -1,6 +1,6 @@
 .radioPad {
   display: inline-block;
-  width: 33%;
+  width: 50%;
   vertical-align: middle;
 }
 
@@ -29,5 +29,5 @@
   visibility: hidden;
   height: 0;
   width: 0;
-  opacity: 0;
+  opacity: 1;
 }
