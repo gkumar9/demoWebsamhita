@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import CKEditor from "ckeditor4-react";
-// import axios from "axios";
+import axios from "axios";
 // import URL from "../../Assets/url";
 // import Difficulty from "./difficulty.js";
 import "./index.css";
-// import ReactTags from "react-tag-autocomplete";
+import ReactTags from "react-tag-autocomplete";
 import swal from "sweetalert";
 
 class QuesEnglish extends Component {
@@ -72,90 +72,92 @@ class QuesEnglish extends Component {
       listOfOptions: currentArrayOfOption
     });
   };
-  // saveEnglishdata = () => {
-  //   let difficultyvalue;
-  //   switch (this.props.difficulty) {
-  //     case "+":
-  //       difficultyvalue = "EASY";
-  //       break;
-  //     case "++":
-  //       difficultyvalue = "MILD";
-  //       break;
-  //     case "+++":
-  //       difficultyvalue = "ADVANCE";
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  //   let converttags = this.props.tags.map(item => {
-  //     return { tagId: item.id ? item.id : 0, tag: item.name };
-  //   });
+  saveEnglishdata = () => {
+    let difficultyvalue;
+    switch (this.props.difficulty) {
+      case "+":
+        difficultyvalue = "EASY";
+        break;
+      case "++":
+        difficultyvalue = "MILD";
+        break;
+      case "+++":
+        difficultyvalue = "ADVANCE";
+        break;
+      default:
+        break;
+    }
+    let converttags = this.props.tags.map(item => {
+      return { tagId: item.id ? item.id : 0, tag: item.name };
+    });
 
-  //   axios({
-  //     method: "POST",
-  //     url:
-  //       this.props.questionId === 0
-  //         ? URL.createQuestion
-  //         : URL.createQuestionNewVersion,
-  //     data: {
-  //       authToken: "string",
-  //       difficulty: difficultyvalue ? difficultyvalue : "EASY",
-  //       questionId: this.props.questionId,
-  //       sectionId: this.props.selectedChapterID,
-  //       subjectId: this.props.selectedSubjectID,
-  //       subtopicId: this.props.selectedSubTopicID,
-  //       tags: converttags,
-  //       topicId: this.props.selectedTopicID,
-  //       type: "SINGLE_CHOICE",
-  //       version: {
-  //         content: this.state.questionData,
-  //         language: "ENGLISH",
-  //         options: this.state.listOfOptions,
-  //         // questionVersionId: 0,
-  //         solution: this.state.explanationData
-  //       }
-  //     },
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     }
-  //   })
-  //     .then(res => {
-  //       if (res.status === 200) {
-  //         // console.log(res.data.data);
-  //         if (this.props.questionId === 0) {
-  //           swal(
-  //             "Success",
-  //             `Added new Question, Id:${res.data.data.questionId}`,
-  //             "success"
-  //           );
-  //         } else {
-  //           swal(
-  //             "Success",
-  //             `Added new Version of Question, Id:${res.data.data.questionId}`,
-  //             "success"
-  //           );
-  //         }
+    axios({
+      method: "POST",
+      url:
+        this.props.questionId === 0
+          ? URL.createQuestion
+          : URL.createQuestionNewVersion,
+      data: {
+        authToken: "string",
+        difficulty: difficultyvalue ? difficultyvalue : "EASY",
+        questionId: this.props.questionId,
+        sectionId: this.props.selectedChapterID,
+        subjectId: this.props.selectedSubjectID,
+        subtopicId: this.props.selectedSubTopicID,
+        tags: converttags,
+        topicId: this.props.selectedTopicID,
+        type: "SINGLE_CHOICE",
+        version: {
+          content: this.state.questionData,
+          language: "ENGLISH",
+          options: this.state.listOfOptions,
+          // questionVersionId: 0,
+          solution: this.state.explanationData
+        }
+      },
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => {
+        if (res.status === 200) {
+          // console.log(res.data.data);
+          if (this.props.questionId === 0) {
+            swal(
+              "Success",
+              `Added new Question, Id:${res.data.data.questionId}`,
+              "success"
+            );
+          } else {
+            swal(
+              "Success",
+              `Added new Version of Question, Id:${res.data.data.questionId}`,
+              "success"
+            );
+          }
 
-  //         this.props.handleChange(res.data.data.questionId);
-  //         this.props.handleSelect();
-  //         this.setState({
-  //           questionData: "",
-  //           explanationData: "",
-  //           listOfOptions: [
-  //             { name: "Option A", content: "", weightage: 0 },
-  //             { name: "Option B", content: "", weightage: 0 }
-  //           ],
-  //           letterchartcode: 67
-  //         });
-  //       } else {
-  //         swal(`Status Code:${res.status}`, "error");
-  //       }
-  //     })
-  //     .catch(e => {
-  //       console.log(e);
-  //       swal(e, "error");
-  //     });
-  // };
+          this.props.handleChange(res.data.data.questionId);
+          this.props.handleSelect();
+          this.setState({
+            questionData: "",
+            explanationData: "",
+            listOfOptions: [
+              { name: "Option A", content: "", weightage: 0 },
+              { name: "Option B", content: "", weightage: 0 },
+              { name: "Option C", content: "", weightage: 0 },
+              { name: "Option D", content: "", weightage: 0 }
+            ],
+            letterchartcode: 67
+          });
+        } else {
+          swal(`Status Code:${res.status}`, "error");
+        }
+      })
+      .catch(e => {
+        console.log(e);
+        swal(e, "error");
+      });
+  };
   render() {
     return (
       <div>
