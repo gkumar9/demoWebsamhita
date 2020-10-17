@@ -1,6 +1,6 @@
 .radioPad {
   display: inline-block;
-  width: 50%;
+  width: 33%;
   vertical-align: middle;
 }
 
@@ -11,8 +11,8 @@
   border:1px solid #ced4da;
   color: #787878 !important;
   font-size: 1rem;
-  margin: 0.5rem;
-  padding: 0.2rem;
+  margin: 0.2rem;
+  padding: 0.3rem;
   text-align: center;
 }
 .radioPad__wrapper:active, .radioPad__wrapper--selected {
@@ -29,5 +29,5 @@
   visibility: hidden;
   height: 0;
   width: 0;
-  opacity: 1;
+  opacity: 0;
 }
